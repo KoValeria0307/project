@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Загрузить вакансию | Татнефть</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #006633;
+            --secondary-color: #FFCC00;
+            --text-color: #333;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            min-height: 100vh;
+            color: var(--text-color);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .bg-logo {
+            position: absolute;
+            opacity: 0.05;
+            z-index: -1;
+            width: 80%;
+            max-width: 800px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .company-name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .location {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
+        .upload-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .upload-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .form-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .file-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-height: 200px;
+        }
+        
+        .file-label:hover {
+            border-color: var(--primary-color);
+            background: rgba(0, 102, 51, 0.05);
+        }
+        
+        .file-label i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .file-label span {
+            font-size: 1.1rem;
+            color: #555;
+        }
+        
+        .file-selected {
+            border-color: var(--primary-color);
+            background: rgba(0, 102, 51, 0.05);
+        }
+        
+        .file-selected i {
+            color: var(--secondary-color);
+        }
+        
+        .btn-submit {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 102, 51, 0.3);
+        }
+        
+        .btn-submit:hover {
+            background-color: #00562b;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 102, 51, 0.4);
+        }
+        
+        .btn-submit:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .back-link:hover {
+            color: #00562b;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="company-name">ООО «Татнефть-Самара»</div>
+            <div class="location">Samara/Russia</div>
+        </div>
+        
+        <div class="upload-card">
+            <h2 class="form-title">Загрузите вакансию</h2>
+            
+            <form method="post" enctype="multipart/form-data" action="{{ url_for('upload_file') }}">
+                <input type="file" name="file" id="file" class="file-input" accept=".docx" required>
+                <label for="file" id="fileLabel" class="file-label">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Нажмите или перетащите файл DOCX сюда</span>
+                </label>
+                
+                <button type="submit" id="submitBtn" class="btn-submit" disabled>
+                    Отправить на модерацию
+                </button>
+            </form>
+            
+            <a href="{{ url_for('index') }}" class="back-link">
+                <i class="fas fa-arrow-left"></i> Вернуться на главную
+            </a>
+        </div>
+    </div>
+    
+    <svg class="bg-logo" viewBox="0 0 500 100" xmlns="http://www.w3.org/2000/svg">
+        <text x="50%" y="50%" font-size="60" font-weight="bold" text-anchor="middle" fill="var(--primary-color)">
+            Татнефть
+        </text>
+    </svg>
+    
+    <script>
+        const fileInput = document.getElementById('file');
+        const fileLabel = document.getElementById('fileLabel');
+        const submitBtn = document.getElementById('submitBtn');
+        
+        fileInput.addEventListener('change', function(e) {
+            if (this.files.length > 0) {
+                fileLabel.classList.add('file-selected');
+                fileLabel.innerHTML = `
+                    <i class="fas fa-check-circle"></i>
+                    <span>Файл "${this.files[0].name}" готов к отправке</span>
+                `;
+                submitBtn.disabled = false;
+            }
+        });
+        
+        fileLabel.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileLabel.style.borderColor = (--primary-color);
+            fileLabel.style.backgroundColor = 'rgba(0, 102, 51, 0.1)';
+        });
+        
+        fileLabel.addEventListener('dragleave', () => {
+            fileLabel.style.borderColor = fileInput.files.length ? (--primary-color) : '#ccc';
+            fileLabel.style.backgroundColor = fileInput.files.length ? 'rgba(0, 102, 51, 0.05)' : '';
+        });
+        
+        fileLabel.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileInput.files = e.dataTransfer.files;
+            const event = new Event('change');
+            fileInput.dispatchEvent(event);
+        });
+    </script>
+</body>
+</html>

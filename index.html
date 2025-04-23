@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Татнефть-Самара | Официальный сайт</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        
+        :root {
+            --primary-color: #006633;
+            --secondary-color: #FFCC00;
+            --dark-color: #003320;
+            --light-color: #f5f7fa;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: #053231;
+            line-height: 1.6;
+        }
+        
+        
+        .header {
+            background: linear-gradient(135deg, var(--dark-color), var(--primary-color));
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .logo-icon {
+            margin-right: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://sun1-88.userapi.com/s/v1/ig2/5ABB8SUVVxi2zA2bG1KXOX_QU-j6iWreyXY42cDd8cptgW8Z0NBzVRiqkhRG-H5TLEUDUNQKg7V8qA1-5TwJrzSX.jpg?quality=96&blur=50,20&as=32x25,48x38,72x57,108x85,160x127,240x190,360x285,480x380,540x427,640x507,720x570&from=bu&u=MMsclExUU96yfVoiDaW4C6TA22vq9DTz66xOQLHKdAw&cs=720x570');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            animation: fadeInDown 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: var(--dark-color);
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            animation: fadeIn 1.5s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        
+        .about {
+            padding: 5rem 2rem;
+            background: var(--light-color);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary-color);
+        }
+        
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        
+        .features {
+            padding: 5rem 2rem;
+            background: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: var(--light-color);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+        }
+        
+      
+        .gallery {
+            padding: 5rem 2rem;
+            background: var(--light-color);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            height: 250px;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+     
+        .vacancies {
+            padding: 5rem 2rem;
+            background: white;
+            text-align: center;
+        }
+        
+        .vacancies .btn {
+            background: var(--primary-color);
+            color: white;
+            margin-top: 2rem;
+        }
+        
+      
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from { 
+                opacity: 0; 
+                transform: translateY(-30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-oil-can logo-icon"></i>
+                <span>Татнефть-Самара</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#about">О компании</a>
+                <a href="#features">Преимущества</a>
+                <a href="#gallery">Галерея</a>
+                <a href="#vacancies">Вакансии</a>
+                <a href="{{ url_for('administrationhr') }}">HR-портал</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>ООО "Татнефть-Самара"</h1>
+            <p>Ведущее предприятие нефтегазовой отрасли в Самарском регионе с более чем 30-летним опытом работы</p>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <h2 class="section-title">О компании</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>ООО "Татнефть-Самара" - дочернее предприятие ПАО "Татнефть", осуществляющее разведку, добычу и переработку нефти и газа в Самарской области.</p>
+                <p>Основанная в 1992 году, компания занимает лидирующие позиции в регионе по объемам добычи углеводородов и внедрению инновационных технологий.</p>
+                <p>Наши месторождения расположены в 10 районах Самарской области, общие запасы составляют более 150 млн тонн нефтяного эквивалента.</p>
+                <p>Ежегодно компания добывает более 3 млн тонн нефти и 500 млн м³ газа, обеспечивая энергетическую безопасность страны.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://cdn.culture.ru/images/8e756a90-244b-5b63-aaf1-51523e56f3a2" alt="Работники на месторождении">
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <h2 class="section-title">Наши преимущества</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="feature-title">Стабильность</h3>
+                <p>30+ лет успешной работы в отрасли с устойчивым ростом показателей</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h3 class="feature-title">Технологии</h3>
+                <p>Современное оборудование и передовые методы добычи</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="feature-title">Команда</h3>
+                <p>Более 2500 высококвалифицированных специалистов</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3 class="feature-title">Экология</h3>
+                <p>Строгое соблюдение экологических стандартов и норм</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <h2 class="section-title">Наша работа</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://teleofis.ru/upload/medialibrary/303/jmsol78kkt4pi3yyakpjjxo2vg0hdve4/neftyanaya_skvazhina_asutp.jpg" alt="Нефтяное месторождение">
+            </div>
+            <div class="gallery-item">
+                <img src="https://www.zehllaw.com/wp-content/uploads/Odessa-Oilfield-Accident-Lawyer-Odessa-Oil-Field-Injury-Attorney.jpg" alt="Буровая установка">
+            </div>
+            <div class="gallery-item">
+                <img src="https://www.desnol.ru/upload/iblock/f18/f18f9506644b8c84b98d34d81aa41f97.jpg" alt="Лаборатория">
+            </div>
+            <div class="gallery-item">
+                <img src="https://tatarstan.ru/file/photoreport/view_1871027_1821661.jpg" alt="Совещание">
+            </div>
+        </div>
+    </section>
+
+    <section id="vacancies" class="vacancies">
+        <h2 class="section-title">Присоединяйтесь к нашей команде</h2>
+        <p>Мы предлагаем стабильную работу, конкурентную зарплату и возможности для профессионального роста</p>
+        <a href="{{ url_for('show_vacancies') }}" class="btn">Посмотреть вакансии</a>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-logo">
+            <i class="fas fa-oil-can"></i> Татнефть-Самара
+        </div>
+        <div class="footer-links">
+            <a href="#about">О компании</a>
+            <a href="#features">Преимущества</a>
+            <a href="#gallery">Галерея</a>
+            <a href="#vacancies">Вакансии</a>
+            <a href="{{ url_for('administrationhr') }}">HR-портал</a>
+        </div>
+        <div class="location">
+            <i class="fas fa-map-marker-alt"></i> Samara, Russia
+        </div>
+        <div class="copyright">
+            © 2024 ООО "Татнефть-Самара". Все права защищены.
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'var(--dark-color)';
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, var(--dark-color), var(--primary-color))';
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            }
+        });
+    </script>
+</body>
+</html>

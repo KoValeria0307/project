@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление вакансиями | Татнефть</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+
+        :root {
+            --primary-color: #006633;
+            --secondary-color: #FFCC00;
+            --text-color: #333;
+            --danger-color: #e74c3c;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .company-name {
+            font-size: 2rem;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .hr-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn i {
+            margin-right: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .vacancies-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .vacancy-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .vacancy-title {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        
+        .vacancy-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .status-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .no-vacancies {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="company-name">ООО «Татнефть-Самара»</div>
+            <h1>{% if is_pending %}Вакансии на модерации{% else %}Управление вакансиями{% endif %}</h1>
+        </div>
+        
+        <div class="hr-actions">
+            <a href="{{ url_for('upload_file') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Новая вакансия
+            </a>
+            <a href="{{ url_for('administrationhr') }}" class="btn btn-secondary">
+                <i class="fas fa-home"></i> В портал
+            </a>
+        </div>
+        
+        <div class="vacancies-list">
+            {% if vacancies %}
+                {% for vacancy in vacancies %}
+                <div class="vacancy-card">
+                    {% if vacancy.status == 'pending' %}
+                    <span class="status-badge status-pending">На модерации</span>
+                    {% endif %}
+                    
+                    <h2 class="vacancy-title">{{ vacancy.title }}</h2>
+                    <div><strong>Компания:</strong> {{ vacancy.company }}</div>
+                    <div><strong>Локация:</strong> {{ vacancy.location }}</div>
+                    <div><strong>Зарплата:</strong> {{ vacancy.salary }}</div>
+                    <div><strong>Описание:</strong> {{ vacancy.description|truncate(100) }}</div>
+                    
+                    <div class="vacancy-actions">
+                        {% if is_pending %}
+                        <form action="{{ url_for('approve_vacancy', job_id=vacancy.id) }}" method="POST">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-check"></i> Одобрить
+                            </button>
+                        </form>
+                        <form action="{{ url_for('reject_vacancy', job_id=vacancy.id) }}" method="POST">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-times"></i> Отклонить
+                            </button>
+                        </form>
+                        {% else %}
+                        <form action="{{ url_for('delete_vacancy', job_id=vacancy.id) }}" method="POST"
+                              onsubmit="return confirm('Удалить эту вакансию?');">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Удалить
+                            </button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-vacancies">
+                    <i class="fas fa-inbox" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+                    <p>{% if is_pending %}Нет вакансий на модерации{% else %}Нет активных вакансий{% endif %}</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

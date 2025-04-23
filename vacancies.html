@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Актуальные вакансии | Татнефть</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+
+        :root {
+            --primary-color: #006633;
+            --secondary-color: #FFCC00;
+            --text-color: #333;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            min-height: 100vh;
+            color: var(--text-color);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .bg-logo {
+            position: absolute;
+            opacity: 0.05;
+            z-index: -1;
+            width: 80%;
+            max-width: 800px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.8s ease;
+        }
+        
+        .company-name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .location {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
+        .page-title {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+        }
+        
+        .vacancies-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .vacancy-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.5s ease;
+            animation-fill-mode: both;
+        }
+        
+        .vacancy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .vacancy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+        }
+        
+        .vacancy-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .vacancy-company {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .vacancy-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .meta-item i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .vacancy-salary {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            background-color: rgba(0, 102, 51, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .vacancy-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .vacancy-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+        
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-apply {
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 102, 51, 0.3);
+        }
+        
+        .btn-apply:hover {
+            background-color: #00562b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 102, 51, 0.4);
+        }
+        
+        .btn-delete {
+            background-color: #f44336;
+            color: white;
+            box-shadow: 0 4px 10px rgba(244, 67, 54, 0.3);
+        }
+        
+        .btn-delete:hover {
+            background-color: #d32f2f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(244, 67, 54, 0.4);
+        }
+        
+        .btn i {
+            margin-right: 0.5rem;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .back-link:hover {
+            color: #00562b;
+        }
+        
+        .no-vacancies {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-top: 2rem;
+            grid-column: 1 / -1;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .vacancy-card:nth-child(1) { animation-delay: 0.1s; }
+        .vacancy-card:nth-child(2) { animation-delay: 0.2s; }
+        .vacancy-card:nth-child(3) { animation-delay: 0.3s; }
+        .vacancy-card:nth-child(4) { animation-delay: 0.4s; }
+        .vacancy-card:nth-child(5) { animation-delay: 0.5s; }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="company-name">ООО «Татнефть-Самара»</div>
+            <div class="location">Samara/Russia</div>
+        </div>
+        
+        <h1 class="page-title">Актуальные вакансии</h1>
+        
+        <div class="vacancies-list">
+            {% if vacancies %}
+                {% for vacancy in vacancies %}
+                <div class="vacancy-card">
+                    <h2 class="vacancy-title">{{ vacancy.title }}</h2>
+                    <div class="vacancy-company">{{ vacancy.company }}</div>
+                    
+                    <div class="vacancy-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            {{ vacancy.location }}
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-briefcase"></i>
+                            {{ vacancy.employment_type }}
+                        </div>
+                    </div>
+                    
+                    <div class="vacancy-salary">{{ vacancy.salary }}</div>
+                    
+                    <div class="vacancy-description">
+                        {{ vacancy.description|truncate(200) }}
+                    </div>
+                    
+                    <div class="vacancy-actions">
+                        {% if not is_pending %}
+                        <button type="button" class="btn btn-apply" onclick="showApplyForm('{{ vacancy.id }}')">
+                            <i class="fas fa-paper-plane"></i> Откликнуться
+                        </button>
+                        {% endif %}
+                        
+                        {% if is_hr or is_pending %}
+                        {% if is_pending %}
+                        <form action="{{ url_for('approve_vacancy', job_id=vacancy.id) }}" method="POST">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-check"></i> Одобрить
+                            </button>
+                        </form>
+                        <form action="{{ url_for('reject_vacancy', job_id=vacancy.id) }}" method="POST">
+                            <button type="submit" class="btn btn-delete">
+                                <i class="fas fa-times"></i> Отклонить
+                            </button>
+                        </form>
+                        {% else %}
+                        <form action="{{ url_for('delete_vacancy', job_id=vacancy.id) }}" method="POST" 
+                              onsubmit="return confirm('Вы уверены, что хотите удалить эту вакансию?');">
+                            <button type="submit" class="btn btn-delete">
+                                <i class="fas fa-trash-alt"></i> Удалить
+                            </button>
+                        </form>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                    
+                    <div id="apply-form-{{ vacancy.id }}" class="apply-form" style="display: none; margin-top: 1.5rem;">
+                        <form action="{{ url_for('apply_for_job', job_id=vacancy.id) }}" method="POST">
+                            <div style="margin-bottom: 1rem;">
+                                <input type="text" name="name" placeholder="Ваше имя" required 
+                                       style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px;">
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <input type="email" name="email" placeholder="Email" required 
+                                       style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px;">
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <textarea name="message" placeholder="Сопроводительное письмо" rows="3" required 
+                                          style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px;"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-apply" style="width: 100%;">
+                                <i class="fas fa-paper-plane"></i> Отправить отклик
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-vacancies">
+                    <i class="fas fa-info-circle" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                    <p>На данный момент нет активных вакансий.</p>
+                </div>
+            {% endif %}
+        </div>
+        
+        <a href="{{ url_for('index') }}" class="back-link">
+            <i class="fas fa-arrow-left"></i> Вернуться на главную
+        </a>
+    </div>
+    
+    <svg class="bg-logo" viewBox="0 0 500 100" xmlns="http://www.w3.org/2000/svg">
+        <text x="50%" y="50%" font-size="60" font-weight="bold" text-anchor="middle" fill="var(--primary-color)">
+            Татнефть
+        </text>
+    </svg>
+    
+    <script>
+        function showApplyForm(vacancyId) {
+            const form = document.getElementById(`apply-form-${vacancyId}`);
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+                form.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                form.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
